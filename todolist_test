@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>일정 관리 어플</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .todo-container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 70%;
+      padding: 8px;
+    }
+    button {
+      padding: 8px 12px;
+      margin-left: 5px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>📝 일정 관리</h1>
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요" />
+    <button onclick="addTodo()">추가</button>
+    <ul id="todoList"></ul>
+  </div>
+
+  <script>
+    function addTodo() {
+      const input = document.getElementById("todoInput");
+      const text = input.value.trim();
+      if (text === "") return;
+
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span onclick="toggleComplete(this)">${text}</span>
+        <button onclick="deleteTodo(this)">삭제</button>
+      `;
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+    }
+
+    function toggleComplete(el) {
+      el.classList.toggle("completed");
+    }
+
+    function deleteTodo(button) {
+      const li = button.parentElement;
+      li.remove();
+    }
+  </script>
+</body>
+</html>
